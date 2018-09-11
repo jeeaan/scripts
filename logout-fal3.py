@@ -108,7 +108,7 @@ def logout(ip, power):
 
 	for x, cookie in enumerate(lista_de_cookies):
 		if x < power:
-			os.system("curl -vv -iks -X GET -b session="+cookie+" https://"+ip+"/logout")
+			os.system("curl -iks -X GET -b session="+cookie+" https://"+ip+"/logout")
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
