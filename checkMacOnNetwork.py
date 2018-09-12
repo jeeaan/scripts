@@ -6,13 +6,13 @@ from time import strftime
 from datetime import datetime, timedelta
 import sys
 
-DIARIO = "/home/jean/diario.txt"
-STRANGE = "/home/jean/stranges.txt"
+DIARIO_FILE = "/home/jean/diario.txt"
+STRANGE_FILE = "/home/jean/stranges.txt"
 
 STATUS_CHEGADA = "conectou"
 STATUS_SAIDA = "desconectou"
 
-MACS_MAP =	{
+MACS_MAP = {
   "A4:77:33:FE:77:A8": "Chromecast_Audio",
   "54:60:09:BC:61:A0": "Chromecast_1",
   "80:D2:1D:42:27:FC": "Chromecast_2",
@@ -26,7 +26,7 @@ MACS_MAP =	{
 def tem_estranho(network_now, authorized):
 	mac_address = not_authorized(network_now, authorized)
 	if mac_address:
-		escreve(STATUS_CHEGADA, mac_address, STRANGE)
+		escreve(STATUS_CHEGADA, mac_address, STRANGE_FILE)
 
 def now_on_network():
 	now_in_network = "sudo arp-scan --interface=wlp2s0 --localnet | grep -o -E \'([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}\'"
@@ -51,13 +51,13 @@ def check(mac_address, network_now):
 	return mac_address.lower() in network_now
 
 def bate_ponto(mac_address, network_now):
-	status = ultimo_status(DIARIO)
+	status = ultimo_status(DIARIO_FILE)
 
 	if not check(mac_address, network_now):
 		if status == STATUS_CHEGADA:
-			escreve(STATUS_SAIDA, mac_address, DIARIO)
+			escreve(STATUS_SAIDA, mac_address, DIARIO_FILE)
 	elif status == STATUS_SAIDA:
-		escreve(STATUS_CHEGADA, mac_address, DIARIO)
+		escreve(STATUS_CHEGADA, mac_address, DIARIO_FILE)
 
 def escreve(status, mac_address, arquivo):
 	hora_agora = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
