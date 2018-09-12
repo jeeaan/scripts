@@ -2,7 +2,8 @@
 # coding=utf-8
 
 from subprocess import Popen,PIPE,STDOUT,call
-from time import gmtime, strftime
+from time import strftime
+from datetime import datetime, timedelta
 import sys
 
 ARQUIVO = "/home/jean/diario.txt"
@@ -45,7 +46,8 @@ def bate_ponto(mac_address):
 		escreve("Vamos começar!")
 
 def escreve(status):
-	hora_agora = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+	hora_agora = datetime.today()
+	hora_agora = hora_agora.strftime("%Y-%m-%d %H:%M:%S")
 	text_file = open(ARQUIVO, "a")
 	text_file.write("\n"+hora_agora+" -"+status)
 	text_file.close()
