@@ -16,11 +16,13 @@ MACS_MAP = {
   "A4:77:33:FE:77:A8": "Chromecast_Audio",
   "54:60:09:BC:61:A0": "Chromecast_1",
   "80:D2:1D:42:27:FC": "Chromecast_2",
-  "94:39:E5:F4:12:B9": "SonyZ3",
+  "BC:6E:64:AA:37:2C": "SonyZ3",
   "40:88:05:22:91:6A": "MotoG3Turbo",
   "e8:89:2c:45:79:31": "ArrisTG",
   "94:39:E5:F4:12:B9": "Itautec",
   "50:92:b9:4b:19:12": "SamsungA5"
+  "5c:c9:d3:20:67:d4": "Acer"
+  "40:b4:cd:ac:f4:0e": "Kindle"
 }
 
 def tem_estranho(network_now, authorized):
@@ -52,6 +54,7 @@ def check(mac_address, network_now):
 
 def bate_ponto(mac_address, network_now):
 	status = ultimo_status(DIARIO_FILE)
+	mac_address = mac_address.lower()
 
 	if not check(mac_address, network_now):
 		if status == STATUS_CHEGADA:
